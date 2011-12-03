@@ -173,8 +173,14 @@ public class TestPing {
   public void testPingLocal() {
     final ScheduledThreadPoolExecutor executor = new ScheduledThreadPoolExecutor(2);
     try {
+      String dataModel = System.getProperty("sun.arch.data.model");
       String libExtension = System.getProperty("os.name").toLowerCase().contains("win") ? "dll" : "so";
-      final String libName = "librocksaw." + libExtension;
+	  if (System.getProperty("os.name").toLowerCase().contains("mac")) {
+		  dataModel = "";
+		  libExtension = "jnilib";
+	  }
+	  log.debug(System.getProperty("os.name"));
+      final String libName = "librocksaw"+dataModel+"." + libExtension;
       log.debug("Attempting to load {} from the classpath.", libName);
       new LibraryLoader().loadLibrary(libName);
       final InetAddress address = InetAddress.getByName("localhost");

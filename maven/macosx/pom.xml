@@ -1,0 +1,72 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.savarese</groupId>
+    <artifactId>rocksaw-parent</artifactId>
+    <version>1.0.1</version>
+    <relativePath>../parent</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>rocksaw-native</artifactId>
+  <packaging>jnilib</packaging>
+  <name>RockSaw Raw Socket Library Mac OS X universal</name>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>1.0-alpha-7</version>
+        <extensions>true</extensions>
+        <configuration>
+          <attach>false</attach>
+          <compilerProvider>generic</compilerProvider>
+          <compilerExecutable>clang</compilerExecutable>
+          <compilerStartOptions>
+            <compilerStartOption>-I/System/Library/Frameworks/JavaVM.framework/Headers</compilerStartOption>
+            <compilerStartOption>-x c</compilerStartOption>
+            <!--
+            <compilerStartOption>-arch i386</compilerStartOption>
+            <compilerStartOption>-arch ppc -arch ppc64 -arch i386 -arch x86_64</compilerStartOption>
+            -->
+            <compilerStartOption>-arch i386 -arch x86_64</compilerStartOption>
+          </compilerStartOptions>
+
+          <sources>
+            <source>
+              <directory>../../src/main/native</directory> 
+              <includes>
+                <include>*.c</include>
+              </includes>
+            </source>
+          </sources>
+
+          <linkerStartOptions>
+            <linkerStartOption>-dynamiclib</linkerStartOption>
+            <linkerStartOption>-arch i386 -arch x86_64</linkerStartOption>
+          </linkerStartOptions>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2.2</version>
+        <configuration>
+          <descriptors>
+            <descriptor>../../src/main/assembly/macosx.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

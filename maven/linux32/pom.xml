@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.savarese</groupId>
+    <artifactId>rocksaw-parent</artifactId>
+    <version>1.0.1</version>
+    <relativePath>../parent</relativePath>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>rocksaw-native</artifactId>
+  <packaging>so</packaging>
+  <name>RockSaw Raw Socket Library Linux i686</name>
+  
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>native-maven-plugin</artifactId>
+        <version>1.0-alpha-7</version>
+        <extensions>true</extensions>
+        <configuration>
+          <attach>false</attach>
+          <compilerStartOptions>
+            <compilerStartOption>-I${java.home}/../include</compilerStartOption>
+            <compilerStartOption>-I${java.home}/../include/linux</compilerStartOption>
+            <compilerStartOption>-Wall -O2 -pipe -D_REENTRANT -ansi</compilerStartOption>
+            <compilerStartOption>-fpic -pthread</compilerStartOption>
+          </compilerStartOptions>
+
+          <sources>
+            <source>
+              <directory>../../src/main/native</directory> 
+              <includes>
+                <include>*.c</include>
+              </includes>
+            </source>
+          </sources>
+
+          <linkerStartOptions>
+            <linkerStartOption>-shared</linkerStartOption>
+          </linkerStartOptions>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>2.2.2</version>
+        <configuration>
+          <descriptors>
+            <descriptor>../../src/main/assembly/linux32.xml</descriptor>
+          </descriptors>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

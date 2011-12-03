@@ -1,0 +1,123 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>org.savarese</groupId>
+  <artifactId>rocksaw-parent</artifactId>
+  <version>1.0.1</version>
+  <packaging>pom</packaging>
+  <name>RockSaw Raw Socket Library Linux amd64</name>
+
+  <properties>
+    <test.skip>false</test.skip>
+    <test.fail>true</test.fail>
+    <source.version>1.6</source.version>
+    <target.version>1.6</target.version>
+    <source.encoding>UTF-8</source.encoding>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <scm>
+    <connection>scm:git:git@github.com:sugree/rocksaw.git</connection>
+    <developerConnection>scm:git:git@github.com:sugree/rocksaw.git</developerConnection>
+    <url>https://github.com/sugree/rocksaw</url>
+  </scm>
+
+  <repositories>
+    <repository>
+      <id>ext-release.vm0</id>
+      <url>http://vm0.inox.co.th/artifactory/ext-release-local</url>
+    </repository>
+  </repositories>
+
+  <distributionManagement>
+    <repository>
+      <id>ext-release.vm0</id>
+      <url>http://vm0.inox.co.th/artifactory/ext-release-local</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>${source.version}</source>
+          <target>${target.version}</target>
+          <encoding>${source.encoding}</encoding>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <modules>
+    <module>../..</module>
+  </modules>
+
+  <profiles>
+    <profile>
+      <id>linux32</id>
+      <activation>
+        <os>
+          <family>linux</family>
+          <arch>i686</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>../linux32</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>linux64</id>
+      <activation>
+        <os>
+          <family>linux</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>../linux64</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>win32</id>
+      <activation>
+        <os>
+          <family>windows</family>
+          <arch>i686</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>../win32</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>win64</id>
+      <activation>
+        <os>
+          <family>windows</family>
+          <arch>amd64</arch>
+        </os>
+      </activation>
+      <modules>
+        <module>../win64</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>macosx</id>
+      <activation>
+        <os>
+          <family>macosx</family>
+        </os>
+      </activation>
+      <modules>
+        <module>../macosx</module>
+      </modules>
+    </profile>
+  </profiles>
+</project>

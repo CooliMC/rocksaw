@@ -1,65 +1,48 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <parent>
+    <groupId>org.savarese</groupId>
+    <artifactId>rocksaw-parent</artifactId>
+    <version>1.0.1</version>
+    <relativePath>maven/parent</relativePath>
+  </parent>
+
   <modelVersion>4.0.0</modelVersion>
-  <groupId>org.savarese</groupId>
   <artifactId>rocksaw</artifactId>
-  <version>1.0.1</version>
   <packaging>jar</packaging>
   <name>RockSaw Raw Socket Library</name>
   
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-  </properties>
-
-  <build>
-    <resources>
-      <resource>
-        <directory>src/main/resources</directory>
-      </resource>
-      <resource>
-        <directory>src/main/native</directory>
-        <includes>
-          <include>**/*.dll</include>
-          <include>**/*.so</include>
-        </includes>
-      </resource>
-    </resources>
-    <plugins>
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <version>2.3.2</version>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>exec-maven-plugin</artifactId>
-        <version>1.2</version>
-        <executions>
-          <execution>
-            <!-- make all in the Maven compile phase -->
-            <id>buildlib</id>
-            <phase>compile</phase>
-            <goals>
-              <goal>exec</goal>
-            </goals>
-            <configuration>
-              <executable>make</executable>
-              <workingDirectory>${basedir}/src/main/native</workingDirectory>
-              <arguments>
-                <argument>clean</argument>
-                <argument>all</argument>
-              </arguments>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-    </plugins>
-  </build>
-
   <dependencies>
+    <dependency>
+      <groupId>org.savarese</groupId>
+      <artifactId>rocksaw-native</artifactId>
+      <version>${project.parent.version}</version>
+      <classifier>linux64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.savarese</groupId>
+      <artifactId>rocksaw-native</artifactId>
+      <version>${project.parent.version}</version>
+      <classifier>linux32</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.savarese</groupId>
+      <artifactId>rocksaw-native</artifactId>
+      <version>${project.parent.version}</version>
+      <classifier>win64</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.savarese</groupId>
+      <artifactId>rocksaw-native</artifactId>
+      <version>${project.parent.version}</version>
+      <classifier>win32</classifier>
+    </dependency>
+    <dependency>
+      <groupId>org.savarese</groupId>
+      <artifactId>rocksaw-native</artifactId>
+      <version>${project.parent.version}</version>
+      <classifier>macosx</classifier>
+    </dependency>
+
     <dependency>
       <groupId>com.sun.jna</groupId>
       <artifactId>jna</artifactId>
@@ -96,18 +79,4 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <repositories>
-    <repository>
-      <id>limone</id>
-      <url>https://dev.limone.me/nexus/content/groups/public/</url>
-    </repository>
-  </repositories>
-
-  <distributionManagement>
-    <repository>
-      <id>limone</id>
-      <url>https://dev.limone.me/nexus/content/repositories/releases/</url>
-    </repository>
-  </distributionManagement>
 </project>
