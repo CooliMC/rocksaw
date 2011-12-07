@@ -24,15 +24,15 @@
 
   <repositories>
     <repository>
-      <id>ext-release.vm0</id>
-      <url>http://vm0.inox.co.th/artifactory/ext-release-local</url>
+      <id>libs-release.vm0</id>
+      <url>http://vm0.inox.co.th/artifactory/libs-release-local</url>
     </repository>
   </repositories>
 
   <distributionManagement>
     <repository>
-      <id>ext-release.vm0</id>
-      <url>http://vm0.inox.co.th/artifactory/ext-release-local</url>
+      <id>libs-release.vm0</id>
+      <url>http://vm0.inox.co.th/artifactory/libs-release-local</url>
     </repository>
   </distributionManagement>
 
